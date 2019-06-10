@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            function Ninja() {
+                this.getThis = function() {
+                    return this;
+                }
+                this.getThisArrow = () => this;
+            }
+
+            var ninjaOne = new Ninja();
+
+            // Virtually any function can be invoked as a constructor function via the new keyword
+            // When this happens, an empty object is created, the function context is set to that object, and the object is initialized
+            // The function context thus refers to the object returned by the invocation of the constructor function
+            console.log(ninjaOne.getThis() === ninjaOne);
+
+            // Because getThisArrow is defined within the constructor function, the function context is the object
+            console.log(ninjaOne.getThisArrow() === ninjaOne);
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #first { color: blue; }
+            #second { color: orange; }
+            #third { color: red; }
+        </style>
+    </head>
+    <body>
+        <ul id="first"></ul>
+        <script>
+            function addMessage(element, message) {
+                var newElement = document.createElement("li");
+                newElement.textContent = message;
+                element.append(newElement);
+            }
+
+            var el = document.getElementById("first");
+            addMessage(el, "Page Loaded!");
+        </script>
+        <ul id="second"></ul>
+        <ul id="third"></ul>
+        <script>
+            document.addEventListener('click', function() {
+                var el = document.getElementById("second");
+                setTimeout(() => {
+                    addMessage(el, "Mouse Clicked!");
+                }, 4000);
+            });
+            document.addEventListener('mousemove', function() {
+                var el = document.getElementById("third");
+                addMessage(el, "Mouse Moved!");
+            });
+        </script>
+    </body>
+</html>

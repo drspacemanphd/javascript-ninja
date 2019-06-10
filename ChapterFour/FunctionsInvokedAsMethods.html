@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            function getThis() {
+                return this;
+            }
+
+            function getThisStrict() {
+                'use strict';
+                return this;
+            }
+
+            var ninjaOne = {
+                getThis: getThis,
+                getThisStrict: getThisStrict
+            }
+
+            var ninjaTwo = {
+                getThis: getThis,
+                getThisStrict: getThisStrict
+            }
+
+            var ninjaThree = {
+                getThis: () => this
+            }
+
+            // Even though getThis and getThisStrict are defined as independent functions,
+            // They are being invoked as an object method because ninjaOne has getThis and getThisStrict properties whose values are references to the functions
+            console.log(ninjaOne.getThis() === ninjaOne);
+            console.log(ninjaOne.getThisStrict() === ninjaOne);
+
+            // Notice that when invoked on a different object, that object becomes the function context
+            console.log(ninjaTwo.getThis() === ninjaTwo);
+            console.log(ninjaTwo.getThisStrict() === ninjaTwo);
+
+            // BUT... arrow functions have their function context determined differently
+            // The function context of the arrow function is determined at the function's definition
+            // In this case, even though it is being invoked as an object method, because the ninjaThree object is in the global scope, the function context will be the global scope
+            console.log(ninjaThree.getThis() === window);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #testButton { background-color: blue; color: white; width: 200px; height: 75px; }
+        </style>
+    </head>
+    <body>
+        <button id="testButton">A COOL BUTTON</button>
+        <script>
+            function Button() {
+                this.clicked = false;
+                this.click = function() {
+                    this.clicked = true;
+                    console.log(this);
+                    console.log(this.clicked);
+                }
+            }
+
+            var button = new Button();
+            var buttonElem = document.getElementById("testButton");
+            buttonElem.addEventListener("click", function() {
+                return button.click.call(button);
+            });
+        </script>
+    </body>
+</html>

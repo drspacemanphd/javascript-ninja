@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <script>
+            function getThis() {
+                return this;
+            }
+
+            function getThisStrict() {
+                'use strict';
+                return this;
+            }
+
+            // Returns true because 'this' refers to the global context when function is invoked as function
+            console.log(getThis() === window);
+
+            // BUT when strict mode is enabled, the function context 'this' doesn't refer to global context, but is undefined instead
+            console.log(getThisStrict() === undefined);
+        </script>
+    </body>
+</html>
