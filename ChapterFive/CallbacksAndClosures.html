@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="box" style="position: relative; height: 100px; width: 100px; color: white; background-color: blue; text-align: center; line-height: 100px">Box</div>
+        <script>
+            function animateIt(elId) {
+                var el = document.getElementById(elId);
+                var tick = 0;
+                var timer = setInterval(function() {
+                    if (tick < 500) {
+                        el.style.left = tick + "px";
+                        el.style.top = tick + "px";
+                        tick++;
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 10);
+            }
+
+            animateIt("box");
+        </script>
+    </body>
+</html>

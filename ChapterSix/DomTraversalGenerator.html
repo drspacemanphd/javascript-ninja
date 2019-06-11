@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="boxOne" style="height: 800px; width: 800px; color: white; background-color: blue">
+            <div id="boxTwo" style="height: 400px; width: 400px; color: white; background-color: orangered">Inner Box</div>
+            <textarea id="textarea" style="height: 100px; width: 100px"></textarea>
+            <div id="boxThree">
+                <a href="http://www.google.com">Go to Google!</a>
+            </div>
+        </div>
+
+    </body>
+    <script>
+        function* domTraversal(element) {
+            yield element;
+            element = element.firstElementChild;
+            while (element) {
+                yield* domTraversal(element);
+                element = element.nextElementSibling;
+            }
+        }
+
+        const root = document.getElementById("boxOne");
+        for (element of domTraversal(root)) {
+            console.log(element);
+        }
+    </script>
+</html>
