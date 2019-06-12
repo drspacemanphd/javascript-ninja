@@ -11,17 +11,17 @@
 
     </body>
     <script>
-        function* domTraversal(element) {
-            yield element;
+        function* domTraversal(element, callback) {
+            yield callback(element);
             element = element.firstElementChild;
             while (element) {
-                yield* domTraversal(element);
+                yield* domTraversal(element, callback);
                 element = element.nextElementSibling;
             }
         }
 
         const root = document.getElementById("boxOne");
-        for (element of domTraversal(root)) {
+        for (element of domTraversal(root, (el) => el)) {
             console.log(element);
         }
     </script>
