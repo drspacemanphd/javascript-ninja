@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="parent">I will be loaded in chunks</div>
+        <script>
+            /* 
+            The below is an IIFE that generates div children and appends them to a parent.
+            Rather than perform this task in its entirety as a batch, we use setTimeouts to break it into subtasks that are queued in the task cue.
+            This allows smaller subtasks to run uninterrupted, but allow unrelated tasks, like mouse events, to occur in between subtask executions
+            Because of closures, the second setTimeout call has access to the same environment, allowing us to keep track of iteration
+            */
+            (function generateInChunks(parent, totalSize, divideInto) {
+                let iteration = 0;
+                const chunkSize = totalSize / divideInto;
+                
+                setTimeout(function generateChunk() {
+                    let start = iteration * chunkSize;
+
+                    const chunkEl = document.createElement("div");
+                    chunkEl.appendChild(document.createTextNode("THIS IS CHUNK #" + iteration));
+                    chunkEl.style.fontWeight="bold";
+                    parent.appendChild(chunkEl);
+
+                    for (let i = start; i < start + chunkSize; i++) {
+                        const el = document.createElement("div");
+                        el.appendChild(document.createTextNode("THIS IS DIV #" + i));
+                        parent.appendChild(el);
+                    }
+
+                    iteration++;
+                    if (iteration < divideInto) setTimeout(generateChunk, 0);
+                }, 0) // 0 here specifies that it should happen as soon as possible given the state of the macrotask cue
+
+            })(document.getElementById("parent"), 10000, 10);
+        </script>
+    </body>
+</html>
